@@ -12,6 +12,7 @@ class TekDataTableRowItemWidget<T> extends StatelessWidget {
     required this.column,
     required this.rowOption,
     required this.checkBoxOption,
+    required this.isShowMore,
   }) : super(key: key);
 
   final TekFixedColumn fixedColumn;
@@ -23,6 +24,7 @@ class TekDataTableRowItemWidget<T> extends StatelessWidget {
   final DataTableColumn<T> column;
   final TekDataTableRowOption<T> rowOption;
   final TekDataTableCheckBoxOption<T> checkBoxOption;
+  final bool isShowMore;
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +64,11 @@ class TekDataTableRowItemWidget<T> extends StatelessWidget {
     if (column.key == TekDataTableAdditionColumn.numbered.toString()) {
       return _numberedRowItem();
     }
+
+    if (column.key == TekDataTableAdditionColumn.showMore.toString()) {
+      return _iconShowMore();
+    }
+
     if (column.customizeItemWidget != null) {
       return Padding(
         padding: rowOption.paddingOfRowItem ?? EdgeInsets.all(TekSpacings().p4),
@@ -113,4 +120,10 @@ class TekDataTableRowItemWidget<T> extends StatelessWidget {
       ),
     );
   }
+
+  Widget _iconShowMore() => Icon(
+        isShowMore ? AntIcons.caretDownFilled : AntIcons.caretRightFilled,
+        size: TekIconSizes().s14,
+        color: TekColors().primary,
+      );
 }

@@ -4,13 +4,9 @@ bool isShowInScreen<T>(List<TekScreenDevice>? showOnScreens) {
   return showOnScreens == null || showOnScreens.contains(TekResponsiveConfig().screenDevice);
 }
 
-double getWithAdditionColumn(TekDataTableAdditionColumn additionColumn) {
-  switch (additionColumn) {
-    case TekDataTableAdditionColumn.none:
-      return 0;
-    case TekDataTableAdditionColumn.numbered:
-      return 60;
-    case TekDataTableAdditionColumn.checkbox:
-      return 40;
-  }
-}
+double getWithAdditionColumn(TekDataTableAdditionColumn additionColumn) => switch (additionColumn) {
+      TekDataTableAdditionColumn.none => 0,
+      TekDataTableAdditionColumn.numbered => 60,
+      TekDataTableAdditionColumn.checkbox => 40,
+      TekDataTableAdditionColumn.showMore => 40,
+    };

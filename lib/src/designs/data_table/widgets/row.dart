@@ -63,14 +63,8 @@ class TekDataTableRowWidget<T> extends StatelessWidget {
       decoration: BoxDecoration(
         border: rowOption.bordered
             ? Border(
-                left: BorderSide(
-                  width: 0,
-                  color: TekColors().greyOpacity04,
-                ),
-                right: BorderSide(
-                  width: 0,
-                  color: TekColors().greyOpacity04,
-                ),
+                left: BorderSide(width: 0, color: TekColors().greyOpacity04),
+                right: BorderSide(width: 0, color: TekColors().greyOpacity04),
               )
             : null,
       ),
@@ -121,6 +115,7 @@ class TekDataTableRowWidget<T> extends StatelessWidget {
             column: tableColumns[indexColumn],
             rowOption: rowOption,
             checkBoxOption: checkBoxOption,
+            isShowMore: isShowMore,
           ),
         );
       }
@@ -131,12 +126,13 @@ class TekDataTableRowWidget<T> extends StatelessWidget {
   Widget _wrapContent({required Widget child}) => Container(
         height: height,
         decoration: BoxDecoration(
-          border: rowOption.wrapContentBorder ?? Border(
-            bottom: BorderSide(
-              width: TekBorders.thin,
-              color: TekColors().greyOpacity04,
-            ),
-          ),
+          border: rowOption.wrapContentBorder ??
+              Border(
+                bottom: BorderSide(
+                  width: TekBorders.thin,
+                  color: TekColors().greyOpacity04,
+                ),
+              ),
         ),
         child: fixedColumn != TekFixedColumn.none ||
                 controller.haveFixedColumnsLeft ||

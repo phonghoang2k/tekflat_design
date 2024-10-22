@@ -4,4 +4,5 @@ enum TekDataTableAdditionColumn{
   none,
   numbered,
   checkbox,
+  showMore,
 }
