@@ -3,6 +3,7 @@ library tek_data_table;
 import 'dart:async';
 import 'dart:math';
 
+import 'package:antdesign_icons/antdesign_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:tekflat_design/src/responsive/responsive.dart';
 import 'package:tekflat_design/src/styles/styles.dart';
