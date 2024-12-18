@@ -65,6 +65,7 @@ class TekInputTypeAheadForm<T> extends StatefulWidget {
     this.errorStyle,
     this.readOnly,
     this.ableClearValue = true,
+    this.isSetTextValue = true,
 
     /// Dropdown
     this.offset,
@@ -151,6 +152,7 @@ class TekInputTypeAheadForm<T> extends StatefulWidget {
   final TextStyle? errorStyle;
   final bool? readOnly;
   final bool ableClearValue;
+  final bool isSetTextValue;
 
   /// Dropdown
   final Offset? offset;
@@ -203,6 +205,12 @@ class TekInputTypeAheadFormState<T> extends State<TekInputTypeAheadForm<T>>
 
   /// Input & Focus
   final TextEditingController _controller = TextEditingController();
+
+  void setTextValue(String value) {
+    if (!widget.isSetTextValue) return;
+    _controller.text = value;
+  }
+
   late final FocusNode _searchFocusNode;
   late final TextEditingController _searchController;
 
@@ -253,7 +261,7 @@ class TekInputTypeAheadFormState<T> extends State<TekInputTypeAheadForm<T>>
     if (widget.initialValues != null && widget.initialValues!.isNotEmpty) {
       if (widget.type.isSingle) {
         _initValueTypeSingle = widget.initialValues!.first;
-        _controller.text = _initValueTypeSingle?.label ?? '';
+        setTextValue(_initValueTypeSingle?.label ?? '');
       } else {
         _initValueTypeMultiple = widget.initialValues;
       }
@@ -308,7 +316,7 @@ class TekInputTypeAheadFormState<T> extends State<TekInputTypeAheadForm<T>>
       if (widget.type.isSingle) {
         FocusManager.instance.primaryFocus?.unfocus();
         _menuController.close();
-        _controller.text = item.label;
+        setTextValue(item.label);
         state.didChange(item as ValueType);
         widget.onSelected?.call(item.value, [item.value]);
       } else {
@@ -355,7 +363,7 @@ class TekInputTypeAheadFormState<T> extends State<TekInputTypeAheadForm<T>>
       if (widget.type.isSingle) {
         final convertValue = value as TekInputDropdownItemModel<T>?;
         if (convertValue != null) {
-          _controller.text = convertValue.label;
+          setTextValue(convertValue.label);
         } else {
           _controller.clear();
         }
