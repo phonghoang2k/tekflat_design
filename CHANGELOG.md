@@ -1,3 +1,5 @@
+## 1.6.13
+* Update `TekInputTypeAHeadForm` add params `isSetTextValue`
 ## 1.6.12
 * Edit `hintText` for `TekInputDropdown`.
 * Adding `TekDataTableAdditionColumn.showMore` to has icon expanded or collapsed in `TekDataTable`.
