@@ -78,6 +78,7 @@ class TekInputTypeAheadForm<T> extends StatefulWidget {
     this.noDataWidget,
     this.searchFocusNode,
     this.menuController,
+    this.buildMenuChildrenOnTap,
 
     /// Action
     this.onSearchMenuChildren,
@@ -87,7 +88,6 @@ class TekInputTypeAheadForm<T> extends StatefulWidget {
 
     /// Focus
     this.autoSearchFocus = false,
-
     this.isDidUpdateWidget = true,
   }) : super(key: key);
 
@@ -165,6 +165,7 @@ class TekInputTypeAheadForm<T> extends StatefulWidget {
   final Widget Function()? noDataWidget;
   final FocusNode? searchFocusNode;
   final MenuController? menuController;
+  final Future<List<TekInputDropdownItemModel<T>>> Function()? buildMenuChildrenOnTap;
 
   /// Action
   final Future<List<TekInputDropdownItemModel<T>>> Function()? initMenuChildren;
@@ -291,9 +292,7 @@ class TekInputTypeAheadFormState<T> extends State<TekInputTypeAheadForm<T>>
         _loading.openAndDismissLoading(
           () async {
             final result = await widget.initMenuChildren?.call();
-            setState(() {
-              _menuChildren = result ?? [];
-            });
+            _setMenuChildren(result ?? []);
           },
         );
       },
@@ -434,6 +433,15 @@ class TekInputTypeAheadFormState<T> extends State<TekInputTypeAheadForm<T>>
                     if (!widget.enabled) return;
                     _menuController.open();
                     widget.onTap?.call();
+                    if (widget.buildMenuChildrenOnTap != null) {
+                      _loading.openAndDismissLoading(
+                        () async {
+                          final List<TekInputDropdownItemModel<T>>? result =
+                              await widget.buildMenuChildrenOnTap?.call();
+                          _setMenuChildren(result ?? []);
+                        },
+                      );
+                    }
                   },
                   onTapOutside: widget.onTapOutside,
                   onEditingComplete: widget.onEditingComplete,
