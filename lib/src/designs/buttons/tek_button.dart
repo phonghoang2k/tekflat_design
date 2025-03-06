@@ -404,7 +404,9 @@ class TekButton extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         padding: EdgeInsets.zero,
         margin: EdgeInsets.zero,
-        height: height ?? size.height,
+        constraints: BoxConstraints(
+          minHeight: height ?? size.height,
+        ),
         width: width,
         decoration: BoxDecoration(boxShadow: boxShadow),
         child: ElevatedButton(
